@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   onibus:{
     width: '110%',
     backgroundColor: 'white',
-    height: '15%',
+    height: '10%',
     borderRadius: 20,
     flexDirection: 'row',
     alignItems: 'center',
@@ -90,7 +90,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
-    borderRadius: 20,
+    borderTopLeftRadius: 20,
+    borderBottomLeftRadius: 20,
     width: '45%',
     marginRight: -25
    },
