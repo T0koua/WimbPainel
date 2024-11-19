@@ -77,55 +77,8 @@ const styles = StyleSheet.create({
     marginBottom: '3%'
   },
 
-  caixaTextos:{
-    alignItems:'flex-start',
-    justifyContent: 'flex-start',
-    width: '80%'
-  },
-
-  tituloPagina:{
-    fontSize: 20,
-    fontWeight:'bold',
-    marginBottom: 20,
-    marginTop: 50,
-  },
-
-  subtituloPagina:{
-    fontSize: 15,
-    fontWeight:'light',
-    marginBottom: 35
-  },
-
-  campo:{
-    backgroundColor: 'white',
-    borderRadius: 20,
-    fontSize: 15,
-    color: 'black',
-    margin: 15,
-    padding: 12,
-    width: '80%',
-    alignSelf: 'center',
-    elevation: 5,
-    paddingVertical: 10
-  },
-
-   enviar: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 20,
-    marginTop: 3,
-    padding: 12,
-    borderWidth: 0,
-    width: '100%',
-    backgroundColor:'#545454',
-    marginBottom: 40,
-    elevation: 5,
-    paddingVertical: 15,
-    height:'30%'
-  },
-
   numero:{
-    fontSize: 15,
+    fontSize: 25,
     color: 'black',
     fontWeight: '700',
 
@@ -149,10 +102,10 @@ const styles = StyleSheet.create({
     elevation: 5
    },
    onibusTexto: {
-    fontWeight: '700',
+    fontWeight: '200',
     marginLeft: 7,
     flex: 1,
-    fontSize: 12
+    fontSize: 15
    },
    horario:{
     backgroundColor: '#545454',

@@ -22,14 +22,24 @@ export default function Info({ navigation }:Props){
       <Feather name="arrow-left" style={styles.icon}/>
       </TouchableOpacity>
       
+      <View style={styles.rota}>
+      </View>
 
-        <TouchableOpacity style={styles.enviar}
+      <TouchableOpacity style={styles.onibus}
         onPress={() => navigation.navigate('info')}>
+        <Text style={styles.numero}>
+    351
+    {"\n"}
+    <Text style={styles.onibusTexto}>Shopping Internacional</Text>
+  </Text>
+          <View style={styles.horario}>
+            <Text style={styles.horarioTexto}>12 minutos</Text>
+          </View>
+    </TouchableOpacity>
 
-        <Text style={styles.numero}> 813 </Text>
-
-        </TouchableOpacity>
-
+    <View style={styles.conteudo}>
+    <Text style={styles.horarioTexto}>12 minutos</Text>
+    </View>
     </View>
   );
 }
@@ -51,77 +61,57 @@ const styles = StyleSheet.create({
     fontSize: 30
   },
 
-  titulo: {
-    fontSize: 35,
-    textAlign: 'center',
-    marginTop: 15,
-    fontWeight: 'bold',
-    letterSpacing: 5,
+  rota: {
+    width: '110%',
+    height: '50%',
+    backgroundColor: 'grey'
   },
-
-  subtitulo:{
-    fontSize: 10,
-    textAlign: 'center',
-    marginTop: 5,
-    letterSpacing: 8,
-    marginBottom: 40
-  },
-
-  caixaTextos:{
-    alignItems:'flex-start',
-    justifyContent: 'flex-start',
-    width: '80%'
-  },
-
-  tituloPagina:{
-    fontSize: 20,
-    fontWeight:'bold',
-    marginBottom: 20,
-    marginTop: 50,
-  },
-
-  subtituloPagina:{
-    fontSize: 15,
-    fontWeight:'light',
-    marginBottom: 35
-  },
-
-  campo:{
+  onibus:{
+    width: '110%',
     backgroundColor: 'white',
+    height: '15%',
     borderRadius: 20,
-    fontSize: 15,
-    color: 'black',
-    margin: 15,
-    padding: 12,
-    width: '80%',
-    alignSelf: 'center',
-    elevation: 5,
-    paddingVertical: 10
-  },
-
-   enviar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    marginBottom: 20,
+    elevation: 5
+   },
+   onibusTexto: {
+    fontWeight: '200',
+    marginLeft: 7,
+    flex: 1,
+    fontSize: 15
+   },
+   horario:{
+    backgroundColor: '#545454',
+    height: '40%',
     justifyContent: 'center',
     alignItems: 'center',
+    paddingHorizontal: 20,
     borderRadius: 20,
-    marginTop: 3,
-    padding: 12,
-    borderWidth: 0,
-    width: '80%',
-    backgroundColor:'#545454',
-    marginBottom: 40,
-    elevation: 5,
-    paddingVertical: 15
+    width: '45%',
+    marginRight: -25
+   },
+  horarioTexto: {
+    color: '#fff',
+    fontWeight: '700',
+    fontSize: 12
   },
-
   numero:{
-    fontSize: 15,
+    fontSize: 25,
     color: 'black',
     fontWeight: '700',
-    
   },
-
-  campoTitulo:{
-    marginRight: 10, 
-    textAlign: 'left'
+  conteudo:{
+    width: '110%',
+    height: '30%',
+    flexDirection: 'row'
+  },
+  conteudoLeft:{
+    width: '50%',
+    height: '100%',
+    backgroundColor: 'red'
   }
 });
