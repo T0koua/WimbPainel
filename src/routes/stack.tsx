@@ -1,6 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import Feed from "../screens/Feed";
-import Info from "../screens/Info";
+import Info from "../screens/BusInfo";
 
 type RootStackParamList = {
     feed: undefined;

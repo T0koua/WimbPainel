@@ -5,8 +5,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { StackScreenProps } from '@react-navigation/stack';
 
 type RootStackParamList = {
-  feed: undefined;
-  info: undefined;
+  feed: undefined; // 'feed' não recebe parâmetros
+  info: { bus: { number: string; route: string; eta: string } }; // 'info' recebe um objeto 'bus'
 };
 
 type Props = StackScreenProps<RootStackParamList, 'feed'>;
@@ -21,145 +21,146 @@ const Clock = () => {
       const timeString = now.toLocaleTimeString([], {
         hour: '2-digit',
         minute: '2-digit',
-      }); // Formata apenas horas e minutos
+      });
       setCurrentTime(timeString);
     };
 
-    updateClock(); // Atualiza imediatamente ao carregar
-    const interval = setInterval(updateClock, 1000); // Atualiza a cada segundo
+    updateClock();
+    const interval = setInterval(updateClock, 1000);
 
-    return () => clearInterval(interval); // Limpa o intervalo ao desmontar
+    return () => clearInterval(interval);
   }, []);
 
-  return (
-    <View style={styles.clockContainer}>
-      <Text style={styles.clockText}>{currentTime}</Text>
-    </View>
-  );
+  return <Text style={styles.clockText}>{currentTime}</Text>;
 };
 
 export default function Feed({ navigation }: Props) {
+  const busData = [
+    { number: '351', route: 'Shopping Internacional', eta: '12 min' },
+    { number: '813', route: 'Terminal Cecap via Dutra', eta: '8 min' },
+    { number: '433', route: 'Terminal São João', eta: '5 min' },
+    { number: '330', route: 'Cidade Satélite', eta: '15 min' },
+  ];
+
   return (
     <View style={styles.container}>
-      <View style={styles.head}>
-        <Text style={styles.titulo}> WIMB </Text>
-        <Text style={styles.subtitulo}> WHERE IS MY BUS </Text>
+      <View style={styles.header}>
+        <Text style={styles.title}>WIMB</Text>
+        <Text style={styles.subtitle}>Where Is My Bus</Text>
       </View>
 
-      <TouchableOpacity
-        style={styles.onibus}
-        onPress={() => navigation.navigate('info')}>
-        <Text style={styles.numero}>
-          351
-          {'\n'}
-          <Text style={styles.onibusTexto}>Shopping Internacional
-          {'\n'}
-          </Text>
-        </Text>
-        <TouchableOpacity  style={styles.verRota}>
-          <Text>Aperta</Text>
-        </TouchableOpacity>        
-        <View style={styles.horario}>
-        <Text style={styles.horarioTexto}>12 minutos</Text>
-        </View>
-      </TouchableOpacity>
+      {/* Lista de ônibus */}
+      {busData.map((bus, index) => (
+        <TouchableOpacity
+          key={index}
+          style={styles.busCard}
+          onPress={() => navigation.navigate('info', { bus })}>
+          <View>
+            <Text style={styles.busNumber}>{bus.number}</Text>
+            <Text style={styles.busDetails}>{bus.route}</Text>
+          </View>
+          <View style={styles.routeDetails}>
+            <TouchableOpacity style={styles.routeButton}>
+              <Text style={styles.routeButtonText}>Ver Rota</Text>
+            </TouchableOpacity>
+            <View style={styles.etaBox}>
+              <Text style={styles.etaText}>{bus.eta}</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+      ))}
 
-      {/* Relógio no final da tela */}
-      <View style={styles.relógio}>
+      <View style={styles.footer}>
         <Clock />
       </View>
     </View>
   );
 }
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
     paddingTop: Constants.statusBarHeight,
-    backgroundColor: 'white',
-    padding: 15,
+    backgroundColor: '#F7F7F7',
   },
-  head: {
-    width: '110%',
-    backgroundColor: '#EBCB4A',
-    marginBottom: '3%',
+  header: {
+    backgroundColor: '#FFD700',
+    padding: 20,
+    alignItems: 'center',
+    marginBottom: 20,
   },
-  titulo: {
-    fontSize: 35,
-    textAlign: 'center',
-    marginTop: 15,
+  title: {
+    fontSize: 30,
     fontWeight: 'bold',
-    letterSpacing: 5,
+    color: '#333',
+    letterSpacing: 3,
   },
-  subtitulo: {
-    fontSize: 10,
-    textAlign: 'center',
+  subtitle: {
+    fontSize: 12,
+    color: '#555',
+    letterSpacing: 2,
+  },
+  busCard: {
+    backgroundColor: '#FFF',
+    marginHorizontal: 15,
+    marginVertical: 10,
+    borderRadius: 15,
+    padding: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 3,
+  },
+  busNumber: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  busDetails: {
+    fontSize: 14,
+    color: '#777',
     marginTop: 5,
-    letterSpacing: 8,
-    marginBottom: 40,
   },
-  onibus: {
-    width: '110%',
-    backgroundColor: 'white',
-    height: '15%',
-    borderRadius: 20,
+  routeDetails: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    marginBottom: 20,
-    elevation: 5,
   },
-  numero: {
-    fontSize: 25,
-    color: 'black',
-    fontWeight: '700',
-  },
-  onibusTexto: {
-    fontWeight: '200',
-    marginLeft: 7,
-    flex: 1,
-    fontSize: 15,
-  },
-  verRota: {
-    width: 50,
-    height: 10,
-    backgroundColor: '#EBCB4A'
-  },
-  horario: {
-    backgroundColor: '#545454',
-    height: '40%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    borderTopLeftRadius: 20,
-    borderBottomLeftRadius: 20,
-    width: '45%',
-    marginRight: -25,
-  },
-  horarioTexto: {
-    color: '#fff',
-    fontWeight: '700',
-    fontSize: 15,
-  },
-  relógio: {
-    position: 'absolute', // Posiciona de forma fixa
-    bottom: 0, // Distância do final da tela
-    alignSelf: 'center', // Centraliza horizontalmente
+  routeButton: {
+    backgroundColor: '#FFD700',
+    borderRadius: 10,
     padding: 10,
-    backgroundColor: '#545454',
-    width: '110%',
-    height: '10%'
+    marginRight: 10,
   },
-  clockContainer: {
-    justifyContent: 'center',
+  routeButtonText: {
+    color: '#333',
+    fontWeight: 'bold',
+    fontSize: 12,
+  },
+  etaBox: {
+    backgroundColor: '#333',
+    borderRadius: 10,
+    paddingVertical: 5,
+    paddingHorizontal: 15,
+  },
+  etaText: {
+    color: '#FFF',
+    fontWeight: 'bold',
+  },
+  footer: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    backgroundColor: '#333',
+    padding: 10,
     alignItems: 'center',
   },
   clockText: {
-    fontSize: 40,
-    fontWeight: '500',
-    color: 'white',
-    letterSpacing: 5
+    fontSize: 18,
+    color: '#FFF',
   },
 });
